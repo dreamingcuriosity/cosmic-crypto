@@ -41,9 +41,12 @@ def image_to_number(image: Image.Image) -> int:
         for x in range(width):
             r, g, b = pixels[x, y]
             number = (secrets.randbelow(1000) * 100**8) * (
-                (secrets.randbelow(500) | r) +
-                (secrets.randbelow(500) | g) +
-                (secrets.randbelow(500) | b)
+                number
+                + r * 100**4
+                + g * 100**2
+                + b
+                * r * g * b
+                | secrets.randbelow(500)
             )
     return number
 
